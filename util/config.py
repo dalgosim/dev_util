@@ -2,7 +2,7 @@
 import json
 from dotmap import DotMap
 
-from util import timer, logger
+from dev_util.util import timer, logger
 
 _logger = logger.APP_LOGGER
 CONFIG = DotMap()

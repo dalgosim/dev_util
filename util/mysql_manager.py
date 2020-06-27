@@ -5,7 +5,7 @@ import pandas as pd
 import pymysql
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import create_engine
-from util import logger, config
+from dev_util.util import logger, config
 
 
 class MysqlController:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from util import config, mysql_manager
+from dev_util.util import config, mysql_manager
 
 
 def get_company_list(limit=0):
