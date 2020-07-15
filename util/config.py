@@ -19,22 +19,30 @@ def load_config(run_type='test', path='config.json'):
         BASIS_DATE = timer.get_yesterday('%Y-%m-%d')
 
     # load scheduler config
-    with open(path) as f:
-        config_data = json.load(f)
+    try:
+        with open(path) as f:
+            config_data = json.load(f)
+    except:
+        config_data = {}
+        _logger.debug('There is no config')
     
     # load database config
-    with open(AUTH_PATH) as f:
-        auth_data = json.load(f)
+    try:
+        with open(AUTH_PATH) as f:
+            auth_data = json.load(f)
 
-        # 사용하는 설정만 남기고 지우기
-        TEST_MODE = False if run_type.lower() == 'real' else True
-        _logger.debug(f'===== TEST_MODE : {TEST_MODE} =====')
+            # 사용하는 설정만 남기고 지우기
+            TEST_MODE = False if run_type.lower() == 'real' else True
+            _logger.debug(f'===== TEST_MODE : {TEST_MODE} =====')
 
-        if TEST_MODE:
-            auth_data['MYSQL_CONFIG'] = auth_data['MYSQL_SVR']['DEV_DB']
-        else:
-            auth_data['MYSQL_CONFIG'] = auth_data['MYSQL_SVR']['REAL_DB']
-        auth_data.pop('MYSQL_SVR')
+            if TEST_MODE:
+                auth_data['MYSQL_CONFIG'] = auth_data['MYSQL_SVR']['DEV_DB']
+            else:
+                auth_data['MYSQL_CONFIG'] = auth_data['MYSQL_SVR']['REAL_DB']
+            auth_data.pop('MYSQL_SVR')
+    except:
+        auth_data = {}
+        _logger.debug('There is no auth config')
 
     # merge config
     merged_dict = {**config_data, **auth_data}
