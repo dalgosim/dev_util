@@ -2,6 +2,7 @@
 import os
 import datetime
 import logging
+import codecs
 
 LOG_PATH = 'log'
 
@@ -22,7 +23,7 @@ def init_logger(logger_name='logger'):
     log_date = datetime.date.today().strftime('%Y%m%d')
     file_name = f'./{LOG_PATH}/{log_date}.log'
     if not os.path.exists(file_name):
-        with open(file_name, 'w') as f:
+        with codecs.open(file_name, 'w', 'utf-8') as f:
             f.write('')
 
     fh = logging.FileHandler(filename=file_name)
