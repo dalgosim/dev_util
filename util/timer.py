@@ -19,3 +19,6 @@ def get_yesterday(time_format='%Y-%m-%d %H:%M:%S'):
 def get_now_hour():
     return datetime.datetime.now().hour
 
+def add_date(str_date, delta_day, date_format='%Y-%m-%d'):
+    _date = str2date(str_date, date_format)
+    return (_date + datetime.timedelta(days=delta_day)).strftime(date_format)
