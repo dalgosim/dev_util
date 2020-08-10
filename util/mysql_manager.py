@@ -69,7 +69,8 @@ class MysqlController:
             self.logger.debug(f'Insert Datarame into {table} : {len(df)}')
             df.to_sql(name=table, con=self.engine, index=index, if_exists='append')
             self.logger.debug(f'Insert complete')
-        except IntegrityError as e:
+        except Exception as e:
+            # 여러줄 오류시 한줄씩 넣기
             for i in range(len(df)):
                 row = df.iloc[[i]]
                 try:
@@ -78,7 +79,4 @@ class MysqlController:
                     if not ignore_duplicate:
                         self.logger.debug(f'Duplicated Row ({table}) : {e.args[0]}')
                 except Exception as e:
-                    self.logger.error(f'Insert(In duplicated) Datarame Error ({table}) : {e}')
-        except Exception as e:
-            self.logger.error(f'Insert Datarame Error ({table}) : {e}')
-
+                    self.logger.error(f'Insert Datarame Error ({table}) : {e}')
