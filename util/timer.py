@@ -4,7 +4,7 @@ import datetime
 import random
 
 def random_sleep(min_delay=0.1):
-    time.sleep(max(min_delay, random.randrange(1, 9)/10))
+    time.sleep(min_delay + random.randrange(1, 9)/10)
 
 def get_now(time_format='%Y-%m-%d %H:%M:%S'):
     return datetime.datetime.now().strftime(time_format)
