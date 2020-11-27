@@ -33,7 +33,7 @@ def load_config(run_type='test', path='config.json'):
 
             # 사용하는 설정만 남기고 지우기
             TEST_MODE = False if run_type.lower() == 'real' else True
-            _logger.debug(f'===== TEST_MODE : {TEST_MODE} =====')
+            _logger.debug(f'===== {run_type.upper()} MODE =====')
 
             if TEST_MODE:
                 auth_data['MYSQL_CONFIG'] = auth_data['MYSQL_SVR']['DEV_DB']
