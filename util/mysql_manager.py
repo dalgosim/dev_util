@@ -10,23 +10,28 @@ from dev_util.util import logger, config
 
 class MysqlController:
 
-    def __init__(self):
+    def __init__(self, host=None, user=None, password=None, db=None):
         self.logger = logger.APP_LOGGER
 
+        host = host if host is not None else db_config.MYSQL_HOST
+        user = user if user is not None else db_config.MYSQL_USER
+        password = password if password is not None else db_config.MYSQL_PASSWD
+        db = db if db is not None else db_config.MYSQL_DB
+        
         # MySQL Connection 연결
         db_config = config.CONFIG.MYSQL_CONFIG
-        self.conn = pymysql.connect(host=db_config.MYSQL_HOST,
-                                    user=db_config.MYSQL_USER,
-                                    password=db_config.MYSQL_PASSWD,
-                                    db=db_config.MYSQL_DB,
+        self.conn = pymysql.connect(host=host,
+                                    user=user,
+                                    password=password,
+                                    db=db,
                                     charset='utf8')
         self.curs = self.conn.cursor(pymysql.cursors.DictCursor)
         self.engine = create_engine(
                         '''mysql+pymysql://{user}:{passwd}@{svr}/{db_name}?charset={charset}'''.format(
-                            user=db_config.MYSQL_USER,
-                            passwd=db_config.MYSQL_PASSWD,
-                            svr=db_config.MYSQL_HOST,
-                            db_name=db_config.MYSQL_DB,
+                            user=user,
+                            passwd=password,
+                            svr=host,
+                            db_name=db,
                             charset='utf8'),
                             encoding='utf8')
     def __del__(self):
