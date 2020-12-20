@@ -13,6 +13,7 @@ class MysqlController:
     def __init__(self, host=None, user=None, password=None, db=None):
         self.logger = logger.APP_LOGGER
 
+        db_config = config.CONFIG.MYSQL_CONFIG
         host = host if host is not None else db_config.MYSQL_HOST
         user = user if user is not None else db_config.MYSQL_USER
         password = password if password is not None else db_config.MYSQL_PASSWD
