@@ -5,13 +5,16 @@ import pandas as pd
 import pymysql
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import create_engine
+import logging
+
 from dev_util.util import logger, config
 
 
 class MysqlController:
 
-    def __init__(self, host=None, user=None, password=None, db=None):
+    def __init__(self, host=None, user=None, password=None, db=None, logging_level=logging.INFO):
         self.logger = logger.APP_LOGGER
+        self.logger.setLevel(logging_level)
 
         db_config = config.CONFIG.MYSQL_CONFIG
         host = host if host is not None else db_config.MYSQL_HOST
