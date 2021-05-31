@@ -15,6 +15,9 @@ def str2date(str_date, date_format='%Y-%m-%d'):
     else:
         return str_date
 
+def date2str(_date, date_format='%Y-%m-%d'):
+    return _date.strftime(date_format)
+
 def get_yesterday(time_format='%Y-%m-%d %H:%M:%S'):
     yesterday = datetime.date.today() - datetime.timedelta(days=1)
     return yesterday.strftime(time_format)
